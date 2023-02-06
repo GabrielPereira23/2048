@@ -1,11 +1,89 @@
 * {
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
-body, h1 {
+body,
+h1 {
   margin: 0px;
-  height: 0px;
+  padding: 0px;
 }
 
-/* 2 - 4 - 8 - 16 - 32 - 64 - 128 - 256 - 512 - 1024 - 2048 */
+.container {
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 50px 0px;
+}
+
+.title {
+  margin-bottom: 40px;
+  font-size: 5rem;
+  text-align: center;
+  color: #161616;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  justify-content: center;
+  gap: 5px;
+}
+.game div {
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 3rem;
+  color: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.c0 {
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+.c2 {
+  background-color: #c6401b;
+}
+
+.c4 {
+  background-color: #bd3324;
+}
+
+.c8 {
+  background-color: #c83054;
+}
+
+.c16 {
+  background-color: #b42b51;
+}
+
+.c32 {
+  background-color: #a12669;
+}
+
+.c64 {
+  background-color: #8f2280;
+}
+
+.c128 {
+  background-color: #7f1d95;
+}
+
+.c256 {
+  background-color: #6918b0;
+}
+
+.c512 {
+  background-color: #5713c7;
+}
+
+.c1024 {
+  background-color: #4810d9;
+}
+
+.c2048 {
+  background-color: #2d09fc;
+}
