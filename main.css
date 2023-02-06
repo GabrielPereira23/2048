@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body, h1 {
+  margin: 0px;
+  height: 0px;
+}
+
+/* 2 - 4 - 8 - 16 - 32 - 64 - 128 - 256 - 512 - 1024 - 2048 */
