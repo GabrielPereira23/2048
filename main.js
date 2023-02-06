@@ -18,10 +18,10 @@ const DOM = {
 /* --- Jogo --- */
 const game = {
   matrix: [
-    [2, 4, 0, 0],
-    [2, 4, 1024, 1024],
-    [2, 2, 0, 0],
-    [0, 0, 2, 2],
+    [2, 2, 2, 0],
+    [2, 2, 2, 2],
+    [0, 0, 2, 0],
+    [0, 0, 0, 0],
   ],
   getEmptyPositions: function () {
     let emptyPositions = [];
@@ -53,63 +53,69 @@ const game = {
     DOM.renderGrid(this.matrix);
   },
   compress: function (direction) {
-    this.matrix.forEach((line, lineIndex) => {
-      line.forEach((value, colIndex) => {
-        if (value === 0) {
-          return;
-        }
-        if (direction === "top" && value === this.getValue(lineIndex - 1, colIndex)) {
-          this.setValue(lineIndex - 1, colIndex, value * 2);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
-        if (direction === "down" && value === this.getValue(lineIndex + 1, colIndex)) {
-          this.setValue(lineIndex + 1, colIndex, value * 2);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
-        if (direction === "left" && value === this.getValue(lineIndex, colIndex - 1)) {
-          this.setValue(lineIndex, colIndex - 1, value * 2);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
-        if (direction === "right" && value === this.getValue(lineIndex, colIndex + 1)) {
-          this.setValue(lineIndex, colIndex + 1, value * 2);
+      this.matrix.forEach((line, lineIndex) => {
+        line.forEach((value, colIndex) => {
+          if (value === 0) {
+            return;
+          }
+          if (direction === "top" && value === this.getValue(lineIndex - 1, colIndex)) {
+            this.setValue(lineIndex - 1, colIndex, value * 2);
             this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
+            return;
+          }
+          if (direction === "down" && value === this.getValue(lineIndex + 1, colIndex)) {
+            this.setValue(lineIndex + 1, colIndex, value * 2);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+          if (direction === "left" && value === this.getValue(lineIndex, colIndex - 1)) {
+            this.setValue(lineIndex, colIndex - 1, value * 2);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+          if (direction === "right" && value === this.getValue(lineIndex, colIndex + 1)) {
+            this.setValue(lineIndex, colIndex + 1, value * 2);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+        });
       });
-    });
-    DOM.renderGrid(this.matrix);
   },
   move: function (direction) {
-    this.matrix.forEach((line, lineIndex) => {
-      line.forEach((value, colIndex) => {
-        if (value === 0) {
-          return;
-        }
-        if (direction === "top" && this.getValue(lineIndex - 1, colIndex) === 0) {
-          this.setValue(lineIndex - 1, colIndex, value);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
-        if (direction === "down" && this.getValue(lineIndex + 1, colIndex) === 0) {
-          this.setValue(lineIndex + 1, colIndex, value);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
-        if (direction === "left" && this.getValue(lineIndex, colIndex - 1) === 0) {
-          this.setValue(lineIndex, colIndex - 1, value);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
-        if (direction === "right" && this.getValue(lineIndex, colIndex + 1) === 0) {
-          this.setValue(lineIndex, colIndex + 1, value);
-          this.setValue(lineIndex, colIndex, 0);
-          return;
-        }
+    for (var i = 0; i < 3; i++) {
+      this.matrix.forEach((line, lineIndex) => {
+        line.forEach((value, colIndex) => {
+          if (value === 0) {
+            return;
+          }
+          if (direction === "top" && this.getValue(lineIndex - 1, colIndex) === 0) {
+            this.setValue(lineIndex - 1, colIndex, value);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+          if (direction === "down" && this.getValue(lineIndex + 1, colIndex) === 0) {
+            this.setValue(lineIndex + 1, colIndex, value);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+          if (direction === "left" && this.getValue(lineIndex, colIndex - 1) === 0) {
+            this.setValue(lineIndex, colIndex - 1, value);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+          if (direction === "right" && this.getValue(lineIndex, colIndex + 1) === 0) {
+            this.setValue(lineIndex, colIndex + 1, value);
+            this.setValue(lineIndex, colIndex, 0);
+            return;
+          }
+        });
       });
-    });
+    }
+  },
+  play: function (direction) {
+    this.move(direction);
+    this.compress(direction);
+    this.move(direction);
     DOM.renderGrid(this.matrix);
   }
 };
