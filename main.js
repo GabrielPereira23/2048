@@ -24,9 +24,9 @@ const DOM = {
 const game = {
   // Armazena os números do jogo
   matrix: [
-    [2, 2, 2, 0],
-    [2, 2, 2, 2],
-    [0, 0, 2, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
     [0, 0, 0, 0],
   ],
 
@@ -135,10 +135,28 @@ const game = {
     this.move(direction);
     this.compress(direction);
     this.move(direction);
+    this.createRandomBlock();
+    DOM.renderGrid(this.matrix);
+  },
+
+  // Cria novos blocos aleatórios
+  createRandomBlock: function() {
+    let emptyPositions = this.getEmptyPositions();
+    if (emptyPositions.length === 0) {
+      return;
+    }
+    let position = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+    this.setValue(position[0], position[1], Math.random() >= 0.9 ? 4 : 2);
+  },
+
+  // Inicia o jogo
+  start: function() {
+    this.clearMatrix();
+    this.createRandomBlock();
     DOM.renderGrid(this.matrix);
   }
 };
-DOM.renderGrid(game.matrix);
+game.start();
 
 /* -------------- Eventos de teclas -------------- */
 document.addEventListener('keydown', event => {
